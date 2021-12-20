@@ -1,3 +1,4 @@
+// Mensaje de éxito de conexión 
 exports.success = function(req, res, msj, status){
     res.status(status || 200).send({
         error: '',
@@ -5,6 +6,7 @@ exports.success = function(req, res, msj, status){
     });
 }
 
+// Mensaje de error de conexión
 exports.error = function(req, res, msj, status){
     res.status(status || 200).send({
         error: msj,
