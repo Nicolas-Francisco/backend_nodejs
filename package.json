@@ -24,6 +24,9 @@
   "homepage": "https://github.com/Nicolas-Francisco/backend_nodejs#readme",
   "dependencies": {
     "body-parser": "^1.19.1",
-    "express": "^4.17.2"
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "mongodb": "^4.2.2",
+    "mongoose": "^6.1.2"
   }
 }
