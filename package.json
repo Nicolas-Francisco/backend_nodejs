@@ -1,0 +1,29 @@
+{
+  "name": "backend_nodejs",
+  "version": "0.1.0",
+  "description": "Proyecto para comenzar con node.js",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nicolas-Francisco/backend_nodejs.git"
+  },
+  "keywords": [
+    "chat",
+    "telegram",
+    "server"
+  ],
+  "author": "Nicolas García Ríos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nicolas-Francisco/backend_nodejs/issues"
+  },
+  "homepage": "https://github.com/Nicolas-Francisco/backend_nodejs#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "express": "^4.17.2"
+  }
+}
