@@ -1,8 +1,10 @@
+const store = require('./store');
+
 function addMessage(user, message){
     return new Promise((resolve, reject) => {
         if (!user || !message){
-            console.error('Mensaje inválido')
-            reject('Mensaje inválido');
+            console.error('Usuario o mensaje invalido')
+            reject('Datos incorrectos');
             return false;
         }
 
@@ -12,11 +14,19 @@ function addMessage(user, message){
             date: new Date(),
         }
 
-        console.log(fullMsj);
+        store.addMessage();
         resolve(fullMsj);
-    })
+    });
 }
 
+function getMessages(){
+    return new Promise((resolve, reject) => {
+        resolve(store.list());
+    });
+}
+
+// Exportamos las funciones del controller
 module.exports = {
     addMessage,
+    getMessages,
 }

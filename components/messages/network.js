@@ -8,15 +8,15 @@ const router = express.Router();
 
 // Caso get
 router.get('/', function(req, res) {
-    // Si recibe un nombre, le saluda y arroja status 200
-    if (req.query.name){
-        console.log(req.query.name);
-        responses.success(req, res, 'Hola, ' + req.query.name , 200);
-    } else { // Si no hay un nombre en la query, error
-        console.log('No one is here!')
-        responses.error(req, res, 'ups' , 400);
-    }
-})
+    controller.getMessages()
+    .then((messageList) => {
+        responses.success(req, res, messageList , 200);
+    })
+    .catch(e => {
+        console.log(e);
+        responses.error(req, res, 'Error de GET' , 500);
+    })
+});
 
 router.post('/', function(req, res) {
     controller.addMessage(req.body.user, req.body.message)
@@ -24,7 +24,7 @@ router.post('/', function(req, res) {
         responses.success(req, res, 'Mensaje enviado con exito' , 200);
     })
     .catch(() => {
-        responses.error(req, res, 'Información inválida' , 400);
+        responses.error(req, res, 'Error de POST' , 400);
     })
     
 })
