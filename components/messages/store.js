@@ -1,41 +1,31 @@
 const db = require('mongoose');
+const Model = require('./model');
 
 // Conexion con base de datos
-// mongodb+srv://db_user:Lf5nu4QmTtUkUtc6@cluster0.ni0u5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+const MongoClient = require('mongodb').MongoClient;
 
-const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://db_user:Lf5nu4QmTtUkUtc6@cluster0.ni0u5.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-    const collection = client.db("test").collection("devices");
-    console.log("Conectado a BBDD")
-    client.close();
+var uri = "mongodb://db_user:Lf5nu4QmTtUkUtc6@cluster0-shard-00-00.ni0u5.mongodb.net:27017,cluster0-shard-00-01.ni0u5.mongodb.net:27017,cluster0-shard-00-02.ni0u5.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-xgqdjy-shard-0&authSource=admin&retryWrites=true&w=majority";
+MongoClient.connect(uri, function(err, client) {
+  const collection = client.db("test").collection("devices");
+  client.close();
 });
 
+db.Promise = global.Promise;
 
-function addMessage(message){
-    client.connect(err => {
-        const collection = client.db("test").collection("devices");
+db.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true, dbName: 'nodejs_db' })
+  .then(() => console.log('[db] Conectada con éxito'))
+  .catch(err => console.error('[db]', err));
 
-        console.log("Conectado a BBDD")
-        const myMsj = new db.Model(message);
-        myMsj.save();
-
-        client.close();
-    });
+function addMessage(message) {
+  const myMessage = new Model(message);
+  myMessage.save();
 }
 
-function getMessages(){
-    client.connect(err => {
-        const collection = client.db("test").collection("devices");
-
-        console.log("Conectado a BBDD")
-        const messages = db.Model.find();
-
-        client.close();
-        return messages;
-    });
+async function getMessages() {
+  const messages = await Model.find();
+  return messages;
 }
+
 
 // Exportamos las funciones del almacenamiento
 module.exports = {

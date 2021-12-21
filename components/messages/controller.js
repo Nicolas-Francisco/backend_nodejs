@@ -14,7 +14,7 @@ function addMessage(user, message){
             date: new Date(),
         }
 
-        store.addMessage();
+        store.add(fullMsj);
         resolve(fullMsj);
     });
 }
