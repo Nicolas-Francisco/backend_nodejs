@@ -14,7 +14,7 @@ router.get('/', function(req, res) {
     })
     .catch(e => {
         console.log(e);
-        responses.error(req, res, 'Error de GET : ' + e , 500);
+        responses.error(req, res, '[Error de GET] : ' + e , 500);
     })
 });
 
