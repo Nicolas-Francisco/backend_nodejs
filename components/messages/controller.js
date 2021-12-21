@@ -19,9 +19,40 @@ function addMessage(user, message){
     });
 }
 
-function getMessages(){
+function getMessages(filterUser){
     return new Promise((resolve, reject) => {
-        resolve(store.list());
+        resolve(store.list(filterUser));
+    });
+}
+
+function updateMessage(id, message){
+    return new Promise(async (resolve, reject) => {
+        if (!id || !message){
+            console.error('ID o mensaje invalido')
+            reject('Datos incorrectos');
+            return false;
+        }
+
+        const resp = await store.update(id, message);
+        resolve(resp);
+    });
+}
+
+function deleteMessage(id){
+    return new Promise(async (resolve, reject) => {
+        if (!id){
+            console.error('ID invalido')
+            reject('Datos incorrectos');
+            return false;
+        }
+
+        store.delete(id)
+            .then(() => {
+                resolve();
+            })
+            .catch(e => {
+                reject(e);
+            });
     });
 }
 
@@ -29,4 +60,6 @@ function getMessages(){
 module.exports = {
     addMessage,
     getMessages,
+    updateMessage,
+    deleteMessage,
 }
