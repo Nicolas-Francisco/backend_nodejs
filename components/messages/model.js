@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
     user: {
-        type: String,
+        type: Schema.ObjectId,      // Referencia a schema de usuarios
+        ref: 'User',
         required: true,
     },
     message: {

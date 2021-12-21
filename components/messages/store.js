@@ -8,13 +8,26 @@ function addMessage(message) {
 }
 
 // Funcion getMessages -> retorna todos los mensajes con o sin filtro
-async function getMessages(filterUser) {
-    let filter = {};
-    if(filterUser != null){
-        filter = {user: filterUser};
-    } 
-    const messages = await Model.find(filter);
-    return messages;
+function getMessages(filterUser) {
+    return new Promise((resolve, reject) => {
+        let filter = {};
+        if(filterUser != null){
+            filter = {user: filterUser};
+        } 
+        
+        // Resolvemos el user que hace referencia al id del
+        // componente user.
+        Model.find(filter)
+            .populate('user')
+            .exec((error, populated) => {
+                if (error){
+                    reject(error);
+                    return false;
+                }
+
+                resolve(populated);
+            })
+    });
 }
 
 // Funcion updateMessage -> actualiza un mensaje en la BBDD
